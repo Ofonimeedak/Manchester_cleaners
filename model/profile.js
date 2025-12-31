@@ -6,8 +6,9 @@ const serviceSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    rate: {
+    price: {
       type: Number,
+       min: 13,
       required: true,
     },
   },

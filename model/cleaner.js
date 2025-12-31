@@ -29,11 +29,12 @@ const userSechema = new mongoose.Schema({
   },
   shareCode: {
     type: String,
+    required:true
   },
   visaType: {
     type: String,
-    required: true,
-  },
+    required: true},
+
   ni: {
     type: String,
   },
@@ -47,8 +48,8 @@ const userSechema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  images: {
-    type: String,
+  iDImages: {
+    type: [String],
     enum: ["addressImage", "passport"],
     required: true,
   },
@@ -59,10 +60,12 @@ const userSechema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+
   isVerified:{
     type:Boolean,
     default:false
   },
+
   role:{
     type:String,
     enum:["customer","cleaner", "admin"],
