@@ -92,7 +92,16 @@ const bookingSchema = new mongoose.Schema(
     acceptedAt: Date,
     startedAt: Date,
     completedAt: Date,
+    amount:{
+
+      type:Number,
+      required:true
+    },
+    earnings:{type:Number
+
+    }
   },
+
   { timestamps: true }
 );
 
