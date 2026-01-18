@@ -1,0 +1,79 @@
+# Manchester Cleaners - Cleaning Service Platform
+
+## Overview
+
+Manchester Cleaners is a comprehensive cleaning service platform that connects customers with professional cleaners. The platform features a robust authentication system, role-based access control, and secure data handling to ensure a safe and reliable experience for all users.
+
+## Features
+
+- **Customer Booking System**: Customers can easily book cleaning services
+- **Cleaner Verification**: Cleaners undergo admin verification before providing services
+- **JWT Authentication**: Secure token-based authentication
+- **Role-Based Access Control**: Three distinct user roles with specific permissions
+- **SOLID & Layered Architecture**: Clean, maintainable code structure
+
+## User Roles
+
+| Role | Permissions | Status |
+|------|-------------|--------|
+| **Customer** | Book and manage cleaning services | Immediate access upon signup |
+| **Cleaner** | Provide cleaning services | Requires admin verification before access |
+| **Admin** | Verify cleaners and manage platform users | Full platform access |
+
+## Authentication Flow
+
+The authentication system follows a secure three-step process:
+
+1. **Customer Signup**: Creates account with immediate access
+2. **Cleaner Signup**: Creates account with `isVerified=false` status
+3. **Admin Verification**: Admin approves cleaner, sets `isVerified=true`
+4. **Login Verification**: System checks role, verification status, and account status
+
+## Architecture
+
+The application follows a layered architecture pattern for scalability and maintainability:
+
+```
+HTTP Request → Controller → Service → Repository → MongoDB Database
+```
+
+### Key Layers
+
+- **Controller Layer**: Handles HTTP requests and responses
+- **Service Layer**: Contains business logic and validation
+- **Repository Layer**: Abstracts database operations with support for both standard queries and bulk admin operations
+- **DTO Layer**: Validates input data and prevents XSS attacks
+
+## Security
+
+The platform implements multiple security measures:
+
+- **Password Hashing**: BCrypt for secure password storage
+- **JWT Authentication**: Token-based session management
+- **Role-Based Access Control**: Granular permission management
+- **Input Validation**: DTO layer protects against invalid input and XSS attacks
+
+## Installation
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+## Testing
+
+```bash
+npm test
+```
+
+## Current Development Features
+
+- **Advanced Booking Management System**: Full booking lifecycle management
+- **Penalty and Violation Tracking**: Monitor and track cleaner compliance
+- **Customer Ratings and Reviews**: Review system for service quality feedback
+- **Payment Processing Integration**: Secure payment handling
+
+## License
