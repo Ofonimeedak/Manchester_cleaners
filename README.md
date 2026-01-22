@@ -4,6 +4,8 @@
 
 Manchester Cleaners is a comprehensive cleaning service platform that connects customers with professional cleaners. The platform features a robust authentication system, role-based access control, and secure data handling to ensure a safe and reliable experience for all users.
 
+![landing page wireframe](image.png)
+                                        
 ## Features
 
 - **Customer Booking System**: Customers can easily book cleaning services
