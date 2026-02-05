@@ -1,1 +1,1 @@
-console.log("Manchester Cleaners")
+const app=require('./server/server');
