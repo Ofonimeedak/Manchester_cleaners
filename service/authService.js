@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwtService = require("../middlewares/jwtService.js");
-const UserRepository = require("../repository/userRepository.js");
-const UserDto = require("../Dtos/userDto.js");
+const userRepository = require("../repository/userRepository.js");
+const { UserDto, LoginDto } = require("../Dtos/userDto.js");
 
 class AuthError extends Error {
   constructor(message, status = 401) {
@@ -12,15 +12,20 @@ class AuthError extends Error {
 }
 
 class AuthService {
-  constructor(userRepository = new UserRepository(), jwt = jwtService, Dto = UserDto) {
+  constructor(userRepository, jwtService, userDto) {
     this.userRepository = userRepository;
-    this.jwtService = jwt;
-    this.UserDto = Dto;
+    this.jwtService = jwtService;
+    this.UserDto = UserDto;
   }
 
   async register(userData) {
     const dto = new this.UserDto(userData);
     const entity = dto.toEntity();
+
+    const existingUser = await this.userRepository.findUserByEmail(dto.email);
+    if (existingUser) {
+      throw new ConflictError("User alreday exist");
+    }
 
     entity.password = await bcrypt.hash(dto.password, 10);
 
@@ -29,16 +34,20 @@ class AuthService {
   }
 
   async login(userData) {
-    const dto = new this.UserDto(userData);
-    const user = await this.userRepository.findUserByEmail(dto.email);
+    const dto = new this.LoginDto(userData);
+    const user = await this.userRepository
+      .findUserByEmail(dto.email)
+      .select("+password");
 
     if (!user) throw new AuthError("Invalid credentials");
 
     const isPasswordValid = await bcrypt.compare(dto.password, user.password);
     if (!isPasswordValid) throw new AuthError("Invalid credentials");
 
-    if (!user.isActive) throw new AuthError("Account blocked. Contact support.", 403);
-    if (!user.isVerified) throw new AuthError("User not verified by admin yet.", 403);
+    if (!user.isActive)
+      throw new AuthError("Account blocked. Contact support.", 403);
+    if (!user.isVerified)
+      throw new AuthError("User not verified by admin yet.", 403);
 
     const token = this.jwtService.sign({
       userId: user._id,

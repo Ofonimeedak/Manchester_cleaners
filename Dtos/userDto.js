@@ -31,4 +31,29 @@ class UserDto {
   }
 }
 
-module.export=UserDto;
+class LoginDto {
+
+  constructor(email,password){
+    this.email=email,
+    this.password=password;
+    this.validate();
+  }
+  validate(){
+      const errors=[]
+    if(!email){
+      errors.push("valid email is required")
+    };
+    if(!password || password.lenght<6){
+      errors.push("Invalid password entered");
+    }
+    if (errors.length>0){
+
+      const error= new Error("Validation error");
+      error.details=errors;
+      throw error;
+    }
+  }
+
+}
+
+module.export={UserDto, LoginDto};
