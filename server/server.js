@@ -5,6 +5,8 @@ const port=process.env.PORT;
 
 const app=express();
 
+app.use(express.json());
+
 app.listen(port || 5000,()=>{
 
     console.log(`Server is runing on ${port}`)

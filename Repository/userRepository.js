@@ -1,8 +1,8 @@
 import mongoose from "mongoose";
-import User from "../../model/user.js";
+//import User from "../../model/user.js";
 
 class UserRepository {
-  constructor(model = User) {
+  constructor(model) {
     this.model = model;
   }
 

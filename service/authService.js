@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwtService = require("../middlewares/jwtService.js");
-const userRepository = require("../repository/userRepository.js");
-const { UserDto, LoginDto } = require("../Dtos/userDto.js");
+//const userRepository = require("../repository/userRepository.js");
+//const { UserDto, LoginDto } = require("../Dtos/userDto.js");
 
 class AuthError extends Error {
   constructor(message, status = 401) {
@@ -12,10 +12,11 @@ class AuthError extends Error {
 }
 
 class AuthService {
-  constructor(userRepository, jwtService, userDto) {
+  constructor(userRepository, jwtService, UserDto,LoginDto) {
     this.userRepository = userRepository;
     this.jwtService = jwtService;
     this.UserDto = UserDto;
+    this.LoginDto=LoginDto
   }
 
   async register(userData) {
