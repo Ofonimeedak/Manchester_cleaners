@@ -53,16 +53,11 @@ class AuthService {
     const token = this.jwtService.sign({
       userId: user._id,
       role: user.role,
+       email: user.email
     });
 
-    return {
-      user: {
-        id: user._id,
-        email: user.email,
-        role: user.role,
-      },
-      token,
-    };
+    return token;
+  
   }
 
   async blockUser(id) {
