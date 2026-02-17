@@ -8,15 +8,15 @@ constructor(secretKey,expiresIn="1d"){
     this.expiresIn=expiresIn
 }
 
-jwtSign(payload){
+sign(payload){
 
-const token=jwt.sign(this.secretKey, {expiresIn: this.expiresIn})
+return jwt.sign( payload, this.secretKey, {expiresIn: this.expiresIn})
 
-return token
 };
 
-jwtVerify(token){
+verify(token){
     return jwt.verify(token,this.secretKey)
 
-}}
+}
+}
 module.export=jwtServices;
